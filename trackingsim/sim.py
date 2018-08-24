@@ -15,6 +15,8 @@ class Simulator:
     MAX_SLEEP_TIME = 10     # 10 seconds
     MIN_DISPLACEMENT = 0    # 0 Km
     MAX_DISPLACEMENT = 0.1 # 0.1 Km
+    RANGE_VARIATION_MIN = 0.0001
+    RANGE_VARIATION_MAX = 0.0009
     MIN_BEARING = 0    # 0 degree
     MAX_BEARING = 360  # 360 degrees
     MAX_DISPLACEMENT_FROM_ORIGIN = 100  # 25 Km
@@ -26,9 +28,13 @@ class Simulator:
     MEAN_SEVERITY= 3
 
     def __init__(self, host, port, tenant, device, latitude, longitude, movement):
+
+        longitude = float(longitude) + np.random.uniform(self.__class__.RANGE_VARIATION_MIN, self.__class__.RANGE_VARIATION_MAX)
+        latitude = float(latitude) + np.random.uniform(self.__class__.RANGE_VARIATION_MIN, self.__class__.RANGE_VARIATION_MAX)
+
         self.__logger = logging.getLogger('trackingsim.sim')
         self.__origin = Point(latitude, longitude)
-        self.__current_position = Point(latitude, longitude)
+        self.__current_position = Point(str(latitude) , str(longitude))
         self.__mqttc = mqtt.Client(str(threading.current_thread().ident))
         self.__mqttc.connect(host=host, port=port)
         self.__mqttc.loop_start()
@@ -132,7 +138,7 @@ class Simulator:
         return next_position, displacement, bearing
     
     def __get_static_position(self):
-        return self.__current_position
+        return self.__current_position, self.__displacement, self.__bearing
  
 
     def __get_next_sinr(self):
