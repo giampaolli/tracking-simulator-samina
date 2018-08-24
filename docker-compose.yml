@@ -1,0 +1,35 @@
+version: '2'
+services:
+
+  postgres:
+    image: "postgres:9.4"
+    restart: always
+    environment:
+      POSTGRES_USER: "kong"
+      POSTGRES_DB: "kong"
+    networks:
+      default:
+        aliases:
+          - kong-db
+
+  apigw:
+    image: kong:0.10
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - "127.0.0.1:8000:8000"
+      - "127.0.0.1:8443:8443"
+      - "127.0.0.1:8001:8001"
+    environment:
+      KONG_DATABASE: "postgres"
+      KONG_PG_HOST: "postgres"
+      KONG_LOG_LEVEL: "debug"
+      KONG_ADMIN_ACCESS_LOG: "/tmp/access"
+      KONG_ADMIN_ERROR_LOG: "/tmp/error"
+      KONG_PROXY_ACCESS_LOG: "/tmp/access"
+      KONG_PROXY_ERROR_LOG: "/tmp/error"
+    networks:
+      default:
+        aliases:
+          - kong

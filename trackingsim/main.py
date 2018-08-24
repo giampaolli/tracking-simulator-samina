@@ -70,12 +70,12 @@ if __name__ == '__main__':
                            "simultaneously repeating this option.")
 
     # Simulation - Starting latitude
-    parser.add_option("-x", "--latitude", dest="latitude", default="-22.815970",
-                      help="Starting latitude for the simulation. Defaults to -22.815970.")
+    parser.add_option("-x", "--latitude", dest="latitude", default="-23.559613",
+                      help="Starting latitude for the simulation. Defaults to -23.559613.")
 
     # Simulation - Starting longitude
-    parser.add_option("-y", "--longitude", dest="longitude", default="-47.045121",
-                      help="Starting longitude for the simulation. Defaults to -47.045121.")
+    parser.add_option("-y", "--longitude", dest="longitude", default="-46.663665",
+                      help="Starting longitude for the simulation. Defaults to -46.663665.")
 
     # Simulation - Type of movement (random or straight-line)
     parser.add_option("-m", "--movement", dest="movement", default="straight-line",
@@ -86,8 +86,8 @@ if __name__ == '__main__':
     logger.info("Options: {}".format(options))
 
     # validate parameters
-    if options.movement != 'straight-line' and options.movement != 'random':
-        logger.error("The type of movement {} is invalid. It must be straight-line or random.",
+    if options.movement != 'straight-line' and options.movement != 'random' and options.movement != 'static':
+        logger.error("The type of movement {} is invalid. It must be straight-line, random or static.",
                      options.movement)
         exit(-1)
 

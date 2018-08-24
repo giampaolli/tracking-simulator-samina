@@ -10,8 +10,7 @@ from geopy import distance
 
 
 class Simulator:
-    # MIN_SLEEP_TIME = 599      # 9 min 59 seconds
-    # MAX_SLEEP_TIME = 600     # 10 min
+
     MIN_SLEEP_TIME = 2      # 2 seconds
     MAX_SLEEP_TIME = 10     # 10 seconds
     MIN_DISPLACEMENT = 0    # 0 Km
@@ -21,7 +20,7 @@ class Simulator:
     MAX_DISPLACEMENT_FROM_ORIGIN = 100  # 25 Km
     MEAN_TEMPERATURE = 35
     MEAN_HUMIDITY = 60
-    MEAN_PRECISION = 3000
+    MEAN_PRECISION = 10
     MEAN_BATTERY= 3
     MEAN_TYPE= 0
     MEAN_SEVERITY= 3
@@ -34,7 +33,7 @@ class Simulator:
         self.__mqttc.connect(host=host, port=port)
         self.__mqttc.loop_start()
         self.__topic = "/{0}/{1}/attrs".format(tenant, device)
-        self.__sleep = np.random.uniform(self.__class__.MIN_SLEEP_TIME, self.__class__.MAX_SLEEP_TIME)
+        self.__sleep = 10
         self.__logger.info("Starting simulation for device {0} with sleep time {1}".format(device, self.__sleep))
 
         if movement == 'straight-line':
