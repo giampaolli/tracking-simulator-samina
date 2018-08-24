@@ -10,8 +10,10 @@ from geopy import distance
 
 
 class Simulator:
-    MIN_SLEEP_TIME = 599      # 9 min 59 seconds
-    MAX_SLEEP_TIME = 600     # 10 min
+    # MIN_SLEEP_TIME = 599      # 9 min 59 seconds
+    # MAX_SLEEP_TIME = 600     # 10 min
+    MIN_SLEEP_TIME = 2      # 2 seconds
+    MAX_SLEEP_TIME = 10     # 10 seconds
     MIN_DISPLACEMENT = 0    # 0 Km
     MAX_DISPLACEMENT = 0.1 # 0.1 Km
     MIN_BEARING = 0    # 0 degree
